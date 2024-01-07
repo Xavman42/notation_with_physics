@@ -89,16 +89,18 @@ class MusicTextPhysics(MusicText):
                 self.bounding_rect.height / 2
             )
             self.debug_rect.rotation = self.rotation
+
         body = pymunk.Body()
         body.position = (self.x.base_value - self.bounding_rect.width.base_value / 2,
                          self.y.base_value - self.bounding_rect.height.base_value / 2)
         poly = Poly.create_box(body, (self.bounding_rect.width.base_value, self.bounding_rect.height.base_value))
         poly.mass = (self.bounding_rect.width.base_value/10 + self.bounding_rect.height.base_value/10)
-        poly.collision_type = 2
+        poly.collision_type = 2   # Objects have type 2 collision and can collide with type 1 (walls) and other type 2
         poly.friction = 0.68
-        space.add(body, poly)
+        space.add(body, poly)  # Add this object to the physics space
 
     def move_object(self, new_pos):
+        #  new_pos is the position of a single object in the pymunk physics space.
         self.x = Unit(new_pos.x)
         self.y = Unit(new_pos.y)
         self.rotation = math.degrees(new_pos.angle)

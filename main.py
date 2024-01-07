@@ -1,4 +1,3 @@
-import math
 import random
 from typing import Optional
 
@@ -21,9 +20,9 @@ from class_extensions import MusicTextPhysics
 
 
 def refresh_func(time: float) -> Optional[neoscore.RefreshFuncResult]:
-    space.step(1/60)
+    space.step(1/60)  # Evaluate the physics space
     for idx, i in enumerate(space.bodies):
-        physics_list[idx].move_object(i.position)
+        physics_list[idx].move_object(i.position)  # Match rendering to the physics space
 
 
 def key_event_handler(event):
@@ -66,9 +65,9 @@ def draw_bounding_box(s):
 
 def make_my_space():
     s = pymunk.Space()
-    s.gravity = (0, 981)
+    s.gravity = (0, 981)  # 981 is pretty close to Earth gravity
     s.damping = 0.2
-    draw_bounding_box(s)
+    draw_bounding_box(s)  # Make static walls for objects to collide with.
     h = s.add_collision_handler(1, 2)
     return s, h
 
